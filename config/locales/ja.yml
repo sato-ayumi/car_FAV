@@ -1,0 +1,48 @@
+ja:
+  activerecord:
+    attributes:
+        email: "メールアドレス"
+        nickname: "ニックネーム"
+        password: "パスワード"
+        password_confirmation: "パスワード(確認用)"
+        current_password: "現在のパスワード"
+  # enums:
+    # order:
+    #   payment_method:
+    #     credit_card: 'クレジットカード'
+    #     transfer: '銀行振込'
+    #   status:
+    #     waiting_deposit: '入金待ち'
+    #     confirm_deposit: '入金確認'
+    #     in_production: '製作中'
+    #     preparing_shipment: '発送準備中'
+    #     shipped: '発送済み'
+    # order_detail:
+    #   making_status:
+    #     cannot_start: '着手不可'
+    #     waiting_start: '製作待ち'
+    #     in_production: '製作中'
+    #     completed: '製作完了'
+  views:
+    pagination:
+      first: "≪"
+      previous: "<"
+      next: ">"
+      last: "≫"
+  devise:
+    failure:
+      already_authenticated: "既にログイン済みです。"
+      invalid: "メールアドレスまたはパスワードが正しくありません。"
+      not_found_in_database: "メールアドレスまたはパスワードが正しくありません。"
+      unauthenticated: "続けるにはログインが必要です。"
+    registrations:
+      signed_up: "会員登録が完了しました。ようこそCarFavへ！"
+    sessions:
+      signed_in: "ログインが完了しました。"
+      signed_out: "ログアウトが完了しました。"
+  errors:
+    messages:
+      already_confirmed: "メールアドレスは既に登録されています。"
+      not_saved: 
+        one: "エラーが発生しました。以下ご確認お願いいたします。"
+        other: "エラーが発生しました。以下ご確認お願いいたします。"
