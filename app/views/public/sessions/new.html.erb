@@ -10,19 +10,18 @@
       <h5 class="text-dark bg-light py-4 mb-0 shadow-sm">ログイン</h5>
       <div class="form-body p-4 my-3">
 
-        <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+        <%= form_with model: @user, url: session_path(resource_name), local: true  do |f| %>
           <div class="input-group mb-5">
-
             <div class="input-group-prepend">
-              <span class="input-group-text" aria-hidden="true"><i class="fas fa-envelope"></i></span>
+              <span class="input-group-text"><i class="fas fa-envelope"></i></span>
             </div>
-            <%= f.email_field :email, autofocus: true, class:"form-control", id:"inputEmail", placeholder:"メールアドレス" %>
+            <%= f.email_field :email, class:"form-control", placeholder:"メールアドレス" %>
           </div>
           <div class="input-group mb-3">
             <div class="input-group-prepend">
-              <span class="input-group-text" aria-hidden="true"><i class="fas fa-lock"></i></span>
+              <span class="input-group-text"><i class="fas fa-lock"></i></span>
             </div>
-            <%= f.password_field :password, autocomplete: "off", class:"form-control", id:"inputPassword", placeholder:"パスワード" %>
+            <%= f.password_field :password, autocomplete: "off", class:"form-control", placeholder:"パスワード" %>
           </div>
           <%= f.submit "ログイン", class:"btn btn-lg btn-block btn-info mt-5" %>
         <% end %>

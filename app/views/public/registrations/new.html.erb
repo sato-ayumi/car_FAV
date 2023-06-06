@@ -1,3 +1,5 @@
+<div><%= render 'layouts/flash_message' %></div>
+
 <div class="container">
   <div class="row">
     <div class="col-5 text-center shadow-lg rounded px-0 mx-auto mt-5">
@@ -5,7 +7,7 @@
       <h5 class="text-dark bg-light py-4 shadow-sm">サインアップ</h5>
       
       <div class="form-body p-4">
-         <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+         <%= form_with model: @user, url: registration_path(resource_name), local: true do |f| %>
          <%= render "devise/shared/error_messages", resource: resource %>
           
           <div class="input-group mb-4">

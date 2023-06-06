@@ -1,10 +1,35 @@
 <% if notice %>
- <div class="alert alert-success">
-  <%= notice %>
- </div>
+  <div class="alert alert-success">
+    <%= notice %>
+  </div>
 <% end %>
-<% if warning %>
- <%= render "layouts/flash_message" %>
+<% if success %>
+  <%= render "layouts/flash" %>
 <% end %>
 
-<h1>My page</h1>
+<div class="container px-5">
+  <div class="row">
+    <div class="col-6 mt-5">
+      <h1><%= @user.nickname %>さんのページ</h1>
+    </div>
+    <div class="col-4 mt-5 ">
+      <table class='table'>
+        <tr>
+          <%= image_tag @user.get_profile_image, size:'100x100' %>
+        </tr>
+        <tr>
+          <th>ニックネーム</th>
+          <th><%= @user.nickname %></th>
+        </tr>
+      </table>
+      <% if @user.id == current_user.id %>
+        <%= link_to edit_user_path(@user), class: "btn btn-outline-secondary btn-block" do %>
+          <i class="fas fa-user-cog"></i>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+  <div class="row">
+   
+  </div>
+</div>

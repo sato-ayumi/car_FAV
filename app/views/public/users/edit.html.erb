@@ -1,2 +1,34 @@
-<h1>Public::Users#edit</h1>
-<p>Find me in app/views/public/users/edit.html.erb</p>
+<div class="container">
+  <div class="row no-gutters">
+    <div class="col-md-5 col-sm-10 mx-2 mx-sm-auto text-center shadow-lg rounded px-0 my-5">
+      <h5 class="text-dark bg-light py-4 mb-0">プロフィール編集</h5>
+      <div class="form-body p-4">
+        <%= form_with model: @user, local: true do |f| %>
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text"><i class="fas fa-user"></i></span>
+            </div>
+            <%= f.text_field :nickname, class:"form-control", placeholder:"ニックネーム"%>
+          </div>
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+            </div>
+            <%= f.text_field :email, class:"form-control", placeholder:"メールアドレス"%>
+          </div>
+          <div class="input-group my-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text"><i class="fas fa-image"></i></span>
+            </div>
+            <div class="custom-file">
+              <%= f.file_field :profile_image %>
+              <label class="custom-file-label" style="text-align: left;">プロフィール画像</label>
+            </div>
+          </div>
+          <%= f.submit "変更を保存", class:"btn btn-lg btn-info mt-5 mr-5" %>
+          <%= link_to "退会する", unsubscribe_path, class: "btn btn-lg btn-danger mt-5" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
