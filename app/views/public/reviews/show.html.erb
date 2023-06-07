@@ -1,0 +1,22 @@
+<%= render "layouts/flash" %>
+
+<div class="containar-fluid">
+  <div class="row justify-content-center">
+    <div class="media mt-5">
+      <div><%= image_tag @review.review_image, size: "400x300", class: "mr-3" %></div>
+
+      <div class="media-body">
+        <h3 class="font-weight-bold mb-3"><%= @review.title %></h3>
+        <%= link_to user_path(@review.user) do %>
+          <span>投稿者：<%= @review.user.nickname %>さん</span>
+        <% end %>
+        <p><%= @review.body %></p>
+        <p><%= render "static_star", review: @review %></p>
+        <% if current_user %>
+          <%= link_to "編集する", edit_review_path(@review), class: "btn btn-success" %>
+          <%= link_to "削除する", review_path(@review), method: :delete, class: "btn btn-danger", data: { confirm: "投稿を削除しますか？" } %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

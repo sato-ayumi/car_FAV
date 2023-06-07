@@ -18,11 +18,12 @@
           </div>
           <div class="input-group my-3">
             <div class="input-group-prepend">
-              <span class="input-group-text"><i class="fas fa-image"></i></span>
+              <span class="input-group-text mr-3"><i class="fas fa-image"></i></span>
             </div>
             <div class="custom-file">
-              <%= f.file_field :profile_image %>
-              <label class="custom-file-label" style="text-align: left;">プロフィール画像</label>
+              <div class="input-group mb-3 mt-4">
+                <%= f.file_field :profile_image, accept: 'image/*' %>
+              </div>
             </div>
           </div>
           <%= f.submit "変更を保存", class:"btn btn-lg btn-info mt-5 mr-5" %>

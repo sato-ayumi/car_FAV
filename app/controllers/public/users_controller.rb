@@ -1,5 +1,6 @@
 class Public::UsersController < ApplicationController
   
+  before_action :user_state, only: [:create]
   before_action :is_matching_login_user, only: [:edit, :update]
   
   def show
@@ -40,6 +41,18 @@ class Public::UsersController < ApplicationController
     user = User.find(params[:id])
     unless user.id == current_user.id
       redirect_to user_path
+    end
+  end
+  
+  #退会しているか判断するメソッド
+  def user_state
+    # 入力されたemailからアカウントを１件取得
+    @user = User.find_by(email: params[:user] [:email])
+    # アカウントを取得できなかった場合、このメソッドを修了する
+    return if !@user
+    # 取得したアカウントのパスワードと入力されたパスワードが一致しているか かつ　is_deletedカラムがtrue(退会済み)判別
+    if @user.valid_password?(params[:user] [:password] ) && (@user.is_deleted == true )
+      redirect_to new_user_registration_path, notice: "退会済みです。再度ご登録をしてご利用ください"
     end
   end
   

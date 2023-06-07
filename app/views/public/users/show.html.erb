@@ -10,12 +10,16 @@
 <div class="container px-5">
   <div class="row">
     <div class="col-6 mt-5">
-      <h1><%= @user.nickname %>さんのページ</h1>
+      <% if current_user %>
+        <h1>マイページ</h1>
+      <% else %>
+        <h1><%= @user.nickname %>さんのページ</h1>
+      <% end %>
     </div>
     <div class="col-4 mt-5 ">
       <table class='table'>
         <tr>
-          <%= image_tag @user.get_profile_image, size:'100x100' %>
+          <%= image_tag @user.get_profile_image, class: "rounded-circle" %>
         </tr>
         <tr>
           <th>ニックネーム</th>
@@ -30,6 +34,11 @@
     </div>
   </div>
   <div class="row">
-   
+    <% @user.reviews.each do |review| %>
+      <%= link_to review_path(review) do %>
+        <%= review.title %>
+        <%= link_to "削除する", review_path(review), method: :delete %>
+      <% end %>
+    <% end %>
   </div>
 </div>

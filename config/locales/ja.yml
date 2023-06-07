@@ -6,23 +6,17 @@ ja:
         password: "パスワード"
         password_confirmation: "パスワード(確認用)"
         current_password: "現在のパスワード"
-  # enums:
-    # order:
-    #   payment_method:
-    #     credit_card: 'クレジットカード'
-    #     transfer: '銀行振込'
-    #   status:
-    #     waiting_deposit: '入金待ち'
-    #     confirm_deposit: '入金確認'
-    #     in_production: '製作中'
-    #     preparing_shipment: '発送準備中'
-    #     shipped: '発送済み'
-    # order_detail:
-    #   making_status:
-    #     cannot_start: '着手不可'
-    #     waiting_start: '製作待ち'
-    #     in_production: '製作中'
-    #     completed: '製作完了'
+  enums:
+    review:
+      maker:
+        toyota: 'トヨタ'
+        nissan: '日産'
+        honda: 'ホンダ'
+        mazda: 'マツダ'
+        suzuki: 'スズキ'
+        subaru: 'スバル'
+        others: 'その他'
+        foreign: '海外メーカー'
   views:
     pagination:
       first: "≪"
