@@ -19,7 +19,7 @@
     <div class="col-4 mt-5 ">
       <table class='table'>
         <tr>
-          <%= image_tag @user.get_profile_image, class: "rounded-circle" %>
+          <%= image_tag @user.get_profile_image, size: "100x100", class: "rounded-circle d-block mx-auto" %>
         </tr>
         <tr>
           <th>ニックネーム</th>
@@ -34,11 +34,6 @@
     </div>
   </div>
   <div class="row">
-    <% @user.reviews.each do |review| %>
-      <%= link_to review_path(review) do %>
-        <%= review.title %>
-        <%= link_to "削除する", review_path(review), method: :delete %>
-      <% end %>
-    <% end %>
+    <%= render "public/reviews/index", reviews: @reviews %>
   </div>
 </div>

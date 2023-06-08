@@ -6,8 +6,9 @@ class Public::ReviewsController < ApplicationController
 
   def show
     @review = Review.find(params[:id])
-    @user = @review.user
-    # @review_comment = ReviewComment.new
+    @comments = @review.comments.reverse_order
+    @comment = Comment.new
+    @comment_reply = Comment.new
   end
 
   def index

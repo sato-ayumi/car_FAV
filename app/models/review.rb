@@ -1,10 +1,12 @@
 class Review < ApplicationRecord
   
   belongs_to :user
+  has_many :comments, dependent: :destroy
   
   validates :title, presence: true
   validates :body, presence: true, length: { maximum: 150 }
   validates :maker, presence: true
+  validates :review_image, presence: true
   
   has_one_attached :review_image
   
