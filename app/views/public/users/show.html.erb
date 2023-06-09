@@ -33,7 +33,14 @@
       <% end %>
     </div>
   </div>
-  <div class="row">
+  <div class="row mt-5">
+    <% unless @reviews.empty? %>
     <%= render "public/reviews/index", reviews: @reviews %>
+    <% else %>
+    <h3>まだ投稿はありません。</h3>
+    <%= link_to new_review_path do %>
+      <p>投稿してみましょう！</p>
+    <% end %>
+  <% end %>
   </div>
 </div>

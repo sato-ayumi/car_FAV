@@ -18,7 +18,9 @@ class Public::ReviewsController < ApplicationController
   def create
     @review = Review.new(review_params)
     @review.user_id = current_user.id
+    tag_list = params[:review][:tag_name].split("#")
     if @review.save
+      @review.save_tag(tag_list)
       redirect_to review_path(@review), success: "投稿に成功しました。"
     else
       @reviews = Review.all

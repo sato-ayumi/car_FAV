@@ -1,0 +1,16 @@
+<div class="container">
+<div class="row mt-5">
+<div class="col-9 offset-1">
+<h3 style="display:inline">
+  <%= @keyword %>の検索結果
+</h3> 
+<h6 style="display:inline;">(全<%= @reviews.count %>件)</h6>
+<% if @reviews.empty? %>
+  <div class="h4 text-center mt-5">
+    該当する投稿はありません
+  </div>
+<% end %>
+</div>
+</div>
+</div>
+<%= render "public/reviews/index", reviews: @reviews %>

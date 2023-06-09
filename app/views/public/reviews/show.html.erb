@@ -11,8 +11,13 @@
           <span>投稿者：<%= @review.user.nickname %>さん</span>
         <% end %>
         <p><%= @review.body %></p>
+        <p class="tag_list_box">
+          <% @review.tags.each do |tag| %>
+            #<%= tag.tag_name %>
+          <% end %>
+        </p>
         <p><%= render "static_star", review: @review %></p>
-        <% if current_user %>
+        <% if @review.user == current_user %>
           <%= link_to "編集する", edit_review_path(@review), class: "btn btn-success" %>
           <%= link_to "削除する", review_path(@review), method: :delete, class: "btn btn-danger", data: { confirm: "投稿を削除しますか？" } %>
         <% end %>

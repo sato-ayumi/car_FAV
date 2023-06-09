@@ -1,9 +1,9 @@
-<div class="card-list-containar py-5">
-  <% if reviews.nil? %>
+<div class="card-list-containar w-50 mx-auto py-5">
+  
     <% reviews.each do |review| %>
-    <div class="card w-50 mx-auto mt-4 shadow-lg">
+    <div class="card mt-4 shadow-lg">
       <%= link_to review_path(review) do %>
-        <%= image_tag review.review_image, class:"card-img-top"; %>
+        <%= image_tag review.review_image, class:"card-img" %>
       <% end %>
       <div class="card-body bg-dark">
         <div class="row">
@@ -13,18 +13,13 @@
             <% end %>
           </div>
           <div class="col-10">
-            
+
             <p class="card-text text-light">レビュー評価：<%= render "public/reviews/static_star", review: review %></p>
           </div>
         </div>
       </div>
     </div>
     <% end %>
-  <% else %>
-    <h3>まだ投稿はありません。</h3>
-    <%= link_to new_review_path do %>
-      <p>投稿してみましょう！</p>
-    <% end %>
-  <% end %>
+  
   <%= paginate reviews %>
 </div>

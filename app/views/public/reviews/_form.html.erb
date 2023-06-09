@@ -23,6 +23,13 @@
               <%= f.select :maker, Review.makers_i18n.invert %>
           </div>
           
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <label class="input-group-text" for="inputGroupSelect01">タグ</label>
+            </div>
+              <%= f.text_field :tag_name %>
+          </div>
+          
           <div class="input-group mb-3 mt-4">
             <div class="input-group-prepend">
               <span class="input-group-text mr-2">レビュー評価</span>
