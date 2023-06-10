@@ -20,7 +20,7 @@
             <div class="input-group-prepend">
               <label class="input-group-text" for="inputGroupSelect01">メーカー</label>
             </div>
-              <%= f.select :maker, Review.makers_i18n.invert %>
+              <%= f.select :maker, Review.makers.keys.map {|k| [I18n.t("enums.review.maker.#{k}"), k]} %>
           </div>
           
           <div class="input-group mb-3">
@@ -57,6 +57,17 @@
               </div>
             <% end %>
           </div>
+          
+          <div class="form-check form-check-inline my-2">
+            <%= f.radio_button :status, "published" %>
+            <%= f.label :status, Review.statuses_i18n[:published], class: "form-check-label mx-3" %>
+          </div>
+          <div class="form-check form-check-inline">
+            <%= f.radio_button :status, "draft" %>
+            <%= f.label :status, Review.statuses_i18n[:draft], class: "form-check-label mx-3" %>
+          </div>
+          <p>（ 公開しない場合はマイページからのみ閲覧・編集が可能です。）</p>
+		      
           
           <hr>
           <%= f.submit '投稿', class:"btn btn-lg btn-block btn-info mt-4" %>

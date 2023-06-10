@@ -25,6 +25,9 @@ Rails.application.routes.draw do
     resources :users, only: [:show, :edit, :update]
     resources :reviews do
       resources :comments, only: [:create, :destroy]
+      collection do
+        get "confirm"
+      end
     end
   end
 

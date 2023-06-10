@@ -12,6 +12,9 @@
     <div class="col-6 mt-5">
       <% if current_user %>
         <h1>マイページ</h1>
+        <% if  %>
+        <%= link_to "下書き一覧", confirm_reviews_path %>
+        <% end %>
       <% else %>
         <h1><%= @user.nickname %>さんのページ</h1>
       <% end %>

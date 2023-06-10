@@ -1,0 +1,6 @@
+<%= render "public/reviews/index", reviews: @reviews %>
+<% if @reviews.empty? %>
+  <div class="h4 text-center mt-5">
+    非公開の投稿はありません
+  </div>
+<% end %>

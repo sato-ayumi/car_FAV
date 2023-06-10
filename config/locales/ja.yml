@@ -9,14 +9,17 @@ ja:
   enums:
     review:
       maker:
-        toyota: 'トヨタ'
-        nissan: '日産'
-        honda: 'ホンダ'
-        mazda: 'マツダ'
-        suzuki: 'スズキ'
-        subaru: 'スバル'
-        others: 'その他'
-        foreign: '海外メーカー'
+        toyota: "トヨタ"
+        nissan: "日産"
+        honda: "ホンダ"
+        mazda: "マツダ"
+        suzuki: "スズキ"
+        subaru: "スバル"
+        others: "その他"
+        foreign: "海外メーカー"
+      status:
+        published: "公開する"
+        draft: "公開しない"
   views:
     pagination:
       first: "≪"

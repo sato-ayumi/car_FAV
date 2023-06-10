@@ -12,7 +12,11 @@ class Public::ReviewsController < ApplicationController
   end
 
   def index
-    @reviews = Review.page(params[:page]).reverse_order
+    @reviews = Review.where(status: "published").page(params[:page]).reverse_order
+  end
+  
+  def confirm
+    @reviews = current_user.reviews.where(status: "draft").page(params[:page]).reverse_order
   end
 
   def create
@@ -30,12 +34,21 @@ class Public::ReviewsController < ApplicationController
 
   def edit
     @review = Review.find(params[:id])
+    unless @review.user.id == current_user.id
+       redirect_to reviews_path
+    end
   end
 
   def update
     @review = Review.find(params[:id])
-    @review.update(review_params)
-    redirect_to review_path(@review), success: "投稿内容を更新しました。"
+    unless @review.user.id == current_user.id
+      edirect_to reviews_path
+    end
+    if @review.update(review_params)
+      redirect_to review_path(@review), success: "投稿内容を更新しました。"
+    else
+      render :edit
+    end
   end
 
   def destroy
@@ -47,7 +60,7 @@ class Public::ReviewsController < ApplicationController
   private
 
   def review_params
-    params.require(:review).permit(:review_image, :title, :body, :maker, :star)
+    params.require(:review).permit(:review_image, :title, :body, :maker, :star, :status)
   end
 
 end
