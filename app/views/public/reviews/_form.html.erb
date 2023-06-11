@@ -20,7 +20,7 @@
             <div class="input-group-prepend">
               <label class="input-group-text" for="inputGroupSelect01">メーカー</label>
             </div>
-              <%= f.select :maker, Review.makers.keys.map {|k| [I18n.t("enums.review.maker.#{k}"), k]} %>
+              <%= f.select :maker, Review.maker_options %>
           </div>
           
           <div class="input-group mb-3">
@@ -28,6 +28,7 @@
               <label class="input-group-text" for="inputGroupSelect01">タグ</label>
             </div>
               <%= f.text_field :tag_name %>
+              <div class="mt-2">（複数作成する場合スペースで区切ってください。）</div>
           </div>
           
           <div class="input-group mb-3 mt-4">
@@ -66,7 +67,7 @@
             <%= f.radio_button :status, "draft" %>
             <%= f.label :status, Review.statuses_i18n[:draft], class: "form-check-label mx-3" %>
           </div>
-          <p>（ 公開しない場合はマイページからのみ閲覧・編集が可能です。）</p>
+          <div>（ 公開しない場合はマイページからのみ閲覧・編集が可能です。）</div>
 		      
           
           <hr>

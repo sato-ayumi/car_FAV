@@ -12,9 +12,16 @@ class Public::ReviewsController < ApplicationController
   end
 
   def index
+    @makers = Review.makers.keys
     @reviews = Review.where(status: "published").page(params[:page]).reverse_order
+    @reviews_counts = Review.page(1).total_count
+    
+    if params[:makers].present?
+      makers = params[:makers].reject(&:blank?)
+      @reviews = @reviews.where(maker: makers)
+    end
   end
-  
+
   def confirm
     @reviews = current_user.reviews.where(status: "draft").page(params[:page]).reverse_order
   end
@@ -22,7 +29,7 @@ class Public::ReviewsController < ApplicationController
   def create
     @review = Review.new(review_params)
     @review.user_id = current_user.id
-    tag_list = params[:review][:tag_name].split("#")
+    tag_list = params[:review][:tag_name].split(/[[:space:]]+/)
     if @review.save
       @review.save_tag(tag_list)
       redirect_to review_path(@review), success: "投稿に成功しました。"
@@ -54,7 +61,7 @@ class Public::ReviewsController < ApplicationController
   def destroy
     @review = Review.find(params[:id])
     @review.destroy
-    redirect_to reviews_path
+    redirect_to user_path(@review.user), success: "投稿を削除しました。"
   end
 
   private

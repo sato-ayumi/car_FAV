@@ -1,1 +1,29 @@
+<div class="containar">
+  <div class="row">
+    <div class="col-lg-5 offset-lg-7">
+      <button class="btn btn-secondary my-4" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+        メーカーで絞り込む
+      </button>
+      <div class="collapse" id="collapseExample">
+        <%= form_with url: reviews_path, method: :get do %>
+          <table>
+          <% Review.maker_options.each_slice(4) do |makers_slice| %>
+            <tr>
+              <% makers_slice.each do |maker| %>
+                <td class="mx-3 p-2">
+                  <%= check_box_tag 'makers[]', maker[1], (params[:makers].present? && params[:makers].include?(maker[1])) %>
+                  <%= label_tag "maker_#{maker[1]}", maker[0] %>
+                </td>
+              <% end %>
+            </tr>
+          <% end %>
+          </table>
+          <%= submit_tag "絞り込み" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+  
+<h4 class="my-2 ml-5">投稿一覧（全<%=  @reviews_counts %>件）</h4>
 <%= render "index", reviews: @reviews %>

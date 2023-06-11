@@ -9,35 +9,46 @@
 
 <div class="container px-5">
   <div class="row">
-    <div class="col-6 mt-5">
-      <% if current_user %>
-        <h1>マイページ</h1>
-        <% if  %>
-        <%= link_to "下書き一覧", confirm_reviews_path %>
+    <div class="col-lg-6 mt-5">
+      <h1>
+        <% if @user == current_user %>
+          マイページ
+        <% else %>
+          <%= @user.nickname %>さんのページ
         <% end %>
-      <% else %>
-        <h1><%= @user.nickname %>さんのページ</h1>
+      </h1>
+      <% if @user == current_user %>
+        <%= link_to "下書き一覧", confirm_reviews_path %>
       <% end %>
     </div>
-    <div class="col-4 mt-5 ">
-      <table class='table'>
-        <tr>
-          <%= image_tag @user.get_profile_image, size: "100x100", class: "rounded-circle d-block mx-auto" %>
-        </tr>
+    <div class="col-lg-4 mt-5">
+      <div class="text-center">
+        <%= image_tag @user.get_profile_image, size: "100x100", class: "rounded-circle mx-auto mb-3" %>
+      </div>
+      <table class="table mx-auto">
         <tr>
           <th>ニックネーム</th>
-          <th><%= @user.nickname %></th>
+          <td><%= @user.nickname %></td>
         </tr>
       </table>
-      <% if @user.id == current_user.id %>
+      <% if @user == current_user %>
         <%= link_to edit_user_path(@user), class: "btn btn-outline-secondary btn-block" do %>
           <i class="fas fa-user-cog"></i>
         <% end %>
       <% end %>
     </div>
   </div>
-  <div class="row mt-5">
+</div>
+
+  
+</div>
+<div class="row mt-5">
     <% unless @reviews.empty? %>
+    <h4 class="my-2 ml-4"><% if @user == current_user %>
+          自分の投稿一覧
+        <% else %>
+          <%= @user.nickname %>さんの投稿一覧
+        <% end %>（全<%= @reviews.count %>件）</h4>
     <%= render "public/reviews/index", reviews: @reviews %>
     <% else %>
     <h3>まだ投稿はありません。</h3>
@@ -46,4 +57,3 @@
     <% end %>
   <% end %>
   </div>
-</div>
