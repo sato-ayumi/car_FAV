@@ -1,21 +1,26 @@
 Rails.application.routes.draw do
 
   get "/search", to: "searches#search",  as: "search"
-  
+
   # 管理者用
   devise_for :admin, skip: [:registrations, :passwords], controllers: {
     sessions: "admin/sessions"
   }
-  
+
   namespace :admin do
     root "homes#top"
+    resources :reviews, only: [:index, :show, :edit, :update, :destroy]
   end
-   
+
       # 顧客用
   devise_for :users, skip: [:passwords], controllers: {
     registrations: "public/registrations",
     sessions: "public/sessions"
   }
+
+   devise_scope :user do
+    post 'guests/sign_in', to: 'users/sessions#guest_sign_in', as: "guest_sign_in"
+  end
 
   scope module: :public do
     root "homes#top"

@@ -12,14 +12,16 @@ class Public::ReviewsController < ApplicationController
   end
 
   def index
-    @makers = Review.makers.keys
-    @reviews = Review.where(status: "published").page(params[:page]).reverse_order
-    @reviews_counts = Review.page(1).total_count
+    @reviews = Review.where(status: "published")
     
     if params[:makers].present?
       makers = params[:makers].reject(&:blank?)
       @reviews = @reviews.where(maker: makers)
     end
+    
+    @reviews_counts = @reviews.count
+    @reviews = @reviews.page(params[:page]).reverse_order
+       
   end
 
   def confirm
