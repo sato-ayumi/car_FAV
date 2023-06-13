@@ -1,5 +1,10 @@
 Rails.application.routes.draw do
 
+  namespace :admin do
+    get 'users/index'
+    get 'users/show'
+    get 'users/edit'
+  end
   get "/search", to: "searches#search",  as: "search"
 
   # 管理者用
@@ -10,6 +15,7 @@ Rails.application.routes.draw do
   namespace :admin do
     root "homes#top"
     resources :reviews, only: [:index, :show, :edit, :update, :destroy]
+    resources :users, only: [:index, :show, :edit, :update]
   end
 
       # 顧客用
@@ -32,6 +38,11 @@ Rails.application.routes.draw do
       resources :comments, only: [:create, :destroy]
       collection do
         get "confirm"
+      end
+    end
+    resources :notifications do
+      member do
+        patch :mark_as_read
       end
     end
   end

@@ -1,0 +1,50 @@
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-lg-10">
+      <h1 class="my-5">顧客一覧</h1>
+
+      <div class="col-md-10">
+        <table class="table text-center table-hover">
+          <thead class="table table-secondary">
+            <tr>
+              <th></th>
+              <th>ニックネーム</th>
+              <th>メールアドレス</th>
+              <th>ステータス</th>
+              <th>投稿数(件)</th>
+              <th></th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <% @users.each do |user| %>
+            <tr>
+              <td><%= image_tag user.get_profile_image, size: "50x50", class: "rounded-circle" %></td>
+              <td><%= user.nickname %></td>
+              <td><%= user.email %></td>
+              <td>
+                <% if user.is_deleted == false %>
+                  <span class="text-success font-weight-bold">
+                    <%= '有効' %>
+                  </span>
+                <% else %>
+                  <span class="text-secondary font-weight-bold" style='display: flex; justify-content: center;'>
+                    <%= '退会' %>
+                  </span>
+              　<% end %>
+              </td>
+              <td><%= user.reviews.count %></td>
+              <td><%= link_to "詳細", admin_user_path(user), class: "btn btn-primary" %></td>
+            </tr>
+            <% end %>
+          </tbody>
+        </table>
+        <nav aria-label="Page navigation example">
+          <ul class="pagination">
+            <%= paginate @users, class: "page-link" %>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </div>
+</div>

@@ -10,7 +10,7 @@
         <%= link_to user_path(@review.user) do %>
           <span>投稿者：<%= @review.user.nickname %>さん</span>
         <% end %>
-        <p><%= @review.body %></p>
+        <p><%= safe_join(@review.body.split("\n"),tag(:br))%></p>
         <p class="tag_list_box">
           <% @review.tags.each do |tag| %>
             #<%= tag.tag_name %>
@@ -26,7 +26,7 @@
   </div>
   <div class="col-9 mx-auto mt-4" id="comments_area">
     <%= render "public/comments/index", review: @review, comments: @comments, comment_reply: @comment_reply %>
-    <% if user_signed_in? %>
+    <% if current_user != @review.user %>
       <%= render "public/comments/form", review: @review, comment: @comment %>
     <% end %>
   </div>

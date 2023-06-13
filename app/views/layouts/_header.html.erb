@@ -10,7 +10,6 @@
           <% end %>
         </div>
 
-        <% if user_signed_in? %>
         <div class="search">
           <%= form_with url: search_path, method: :get do |form| %>
             <%= form.text_field :query, placeholder: 'キーワードを入力してください', size: "30" %>
@@ -18,7 +17,6 @@
             <%= form.submit '検索' %>
           <% end %>
         </div>
-        <% end %>
 
         <div>
           <ul class="navbar-nav mr-auto">
@@ -33,14 +31,17 @@
                 <%= link_to "New review", new_review_path, class: "nav-link" %>
               </li>
               <li class="nav-item">
+                <%= link_to "通知一覧", notifications_path, class: "nav-link" %>
+              </li>
+              <li class="nav-item">
                 <%= link_to "Log out", destroy_user_session_path, method: :delete, class: "nav-link" %>
               </li>
             <% elsif admin_signed_in? %>
                <li class="nav-item">
-                <%= link_to "Users", root_path, class: "nav-link" %>
+                <%= link_to "Users", admin_users_path, class: "nav-link" %>
               </li>
               <li class="nav-item">
-                <%= link_to "Reviews", root_path, class: "nav-link" %>
+                <%= link_to "Reviews", admin_reviews_path, class: "nav-link" %>
               </li>
               <li class="nav-item">
                 <%= link_to "Log out", destroy_admin_session_path, method: :delete, class: "nav-link" %>

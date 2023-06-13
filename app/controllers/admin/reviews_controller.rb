@@ -32,7 +32,7 @@ class Admin::ReviewsController < ApplicationController
   def destroy
     @review = Review.find(params[:id])
     @review.destroy
-    redirect_to user_path(@review.user), success: "投稿を削除しました。"
+    redirect_to admin_user_path(@review.user), success: "投稿を削除しました。"
   end
   
   private
