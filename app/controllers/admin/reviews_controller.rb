@@ -23,7 +23,7 @@ class Admin::ReviewsController < ApplicationController
   def update
     @review = Review.find(params[:id])
     if @review.update(review_params)
-      redirect_to review_path(@review), success: "投稿内容を更新しました。"
+      redirect_to admin_review_path(@review), success: "投稿内容を更新しました。"
     else
       render :edit
     end

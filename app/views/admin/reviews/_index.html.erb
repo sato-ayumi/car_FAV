@@ -2,7 +2,7 @@
   
   <% reviews.each do |review| %>
     <div class="card mt-4 shadow-lg  mx-auto">
-      <%= link_to review_path(review) do %>
+      <%= link_to admin_review_path(review) do %>
         <%= image_tag review.review_image, size: "400x400", class: "card-img" %>
       <% end %>
       <div class="card-body bg-dark">

@@ -1,2 +1,25 @@
-<h1>Admin::Reviews#show</h1>
-<p>Find me in app/views/admin/reviews/show.html.erb</p>
+<%= render "layouts/flash" %>
+
+<div class="containar-fluid">
+  <div class="row justify-content-center">
+    <div class="media mt-5">
+      <div><%= image_tag @review.review_image, size: "400x300", class: "mr-3" %></div>
+
+      <div class="media-body">
+        <h3 class="font-weight-bold mb-3"><%= @review.title %></h3>
+        <%= link_to user_path(@review.user) do %>
+          <span>投稿者：<%= @review.user.nickname %>さん</span>
+        <% end %>
+        <p><%= @review.body %></p>
+        <p class="tag_list_box">
+          <% @review.tags.each do |tag| %>
+            #<%= tag.tag_name %>
+          <% end %>
+        </p>
+        <p><%= render "public/reviews/static_star", review: @review %></p>
+          <%= link_to "編集する", edit_admin_review_path(@review), class: "btn btn-success" %>
+          <%= link_to "削除する", admin_review_path(@review), method: :delete, class: "btn btn-danger", data: { confirm: "投稿を削除しますか？" } %>
+      </div>
+    </div>
+  </div>
+</div>
