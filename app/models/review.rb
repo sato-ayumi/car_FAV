@@ -4,7 +4,9 @@ class Review < ApplicationRecord
   has_many :comments, dependent: :destroy
   has_many :tag_maps, dependent: :destroy
   has_many :tags, through: :tag_maps
+  # 投稿が削除された時にそれに関する通知も削除するためのアソシエーション
   has_many :notifications, as: :target, dependent: :destroy
+  has_many :reports, dependent: :destroy
 
   validates :title, presence: true
   validates :body, presence: true, length: { maximum: 150 }

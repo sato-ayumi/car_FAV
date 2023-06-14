@@ -7,6 +7,7 @@ class User < ApplicationRecord
   has_many :reviews, dependent: :destroy
   has_many :comments, dependent: :destroy
   has_many :notifications, dependent: :destroy
+  has_many :reports, dependent: :destroy
   has_one_attached :profile_image
   
   validates :nickname, length: { minimum: 2, maximum: 20 }, uniqueness: true
@@ -24,6 +25,10 @@ class User < ApplicationRecord
   # ゲストユーザーかどうかを判定する
   def guest?
     nickname == 'guestuser' && email == 'guest@example.com'
+  end
+  
+  def unread_notifications
+    notifications.where(read: false)
   end
   
 end

@@ -1,4 +1,4 @@
-<div class="containar border p-3 mb-4">
+<div class="container border p-3 mb-4">
   <div class="row d-flex align-items-center pb-3">
     <div class="col">
       <%= link_to user_path(comment.user) do %>
@@ -13,6 +13,12 @@
   <div class="card-body border rounded mb-3">
     <%= safe_join(comment.comment.split("\n"),tag(:br))%>
   </div>
+  <div class="text-right">
+    <% if comment.user == current_user %>
+      <%= link_to "削除する", review_comment_path(comment.review, comment), method: :delete, class: "btn btn-outline-secondary" %>
+    <% end %>
+  </div>
+  
   <hr class="d-none">
   <!--返信コメントの表示-->
     <% comment.replies.each do |reply| %>
@@ -20,7 +26,7 @@
         <div class="row d-flex align-items-center pb-3">
           <div class="col">
             <%= link_to user_path(reply.user) do %>
-              <%= image_tag comment.user.get_profile_image, size: "50x50" %>
+              <%= image_tag reply.user.get_profile_image, size: "50x50" %>
               <%= reply.user.nickname %>さん
             <% end %>
           </div>
@@ -35,15 +41,14 @@
                 <%= link_to "削除する", review_comment_path(comment.review, reply), method: :delete, class: "btn btn-outline-secondary" %>
               </div>
             <% end %>
+            
           </div>
-        
+
       </div>
     <% end %>
     <% if comment.user != current_user %>
       <%= render "public/comments/reply_form", review: review, comment: comment, comment_reply: comment_reply %>
     <% end %>
-    <% if comment.user == current_user %>
-      <%= link_to "削除する", review_comment_path(comment.review, comment), method: :delete, class: "btn btn-outline-secondary" %>
-    <% end %>
+    
   <hr>
 </div>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_06_13_110008) do
+ActiveRecord::Schema.define(version: 2023_06_14_095935) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -67,11 +67,22 @@ ActiveRecord::Schema.define(version: 2023_06_13_110008) do
     t.string "target_type", null: false
     t.integer "target_id", null: false
     t.string "action", null: false
-    t.boolean "read"
+    t.boolean "read", default: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["target_type", "target_id"], name: "index_notifications_on_target"
     t.index ["user_id"], name: "index_notifications_on_user_id"
+  end
+
+  create_table "reports", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "review_id", null: false
+    t.text "description"
+    t.boolean "is_solved", default: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["review_id"], name: "index_reports_on_review_id"
+    t.index ["user_id"], name: "index_reports_on_user_id"
   end
 
   create_table "reviews", force: :cascade do |t|
@@ -117,6 +128,8 @@ ActiveRecord::Schema.define(version: 2023_06_13_110008) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "comments", "comments", column: "parent_id"
+  add_foreign_key "reports", "reviews"
+  add_foreign_key "reports", "users"
   add_foreign_key "tag_maps", "reviews"
   add_foreign_key "tag_maps", "tags"
 end

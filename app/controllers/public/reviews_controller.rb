@@ -12,7 +12,7 @@ class Public::ReviewsController < ApplicationController
   end
 
   def index
-    @reviews = Review.where(status: "published")
+    @reviews = Review.joins(:user).where(users: { is_deleted: false }, reviews: { status: "published" })
     
     if params[:makers].present?
       makers = params[:makers].reject(&:blank?)

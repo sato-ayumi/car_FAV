@@ -1,3 +1,5 @@
+<%= render "layouts/flash" %>
+
 <div class="containar">
   <div class="row">
     <div class="col-lg-5 offset-lg-7">
@@ -26,4 +28,5 @@
 </div>
   
 <h4 class="my-2 ml-5">投稿一覧（全<%=  @reviews_counts %>件）</h4>
+
 <%= render "index", reviews: @reviews %>

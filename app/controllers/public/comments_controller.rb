@@ -8,15 +8,14 @@ class Public::CommentsController < ApplicationController
     # 返信コメントの作成
     # @comment_reply = @review.commnets.new
     @comment.save
-      redirect_to request.referer
+      redirect_to request.referer, success: "コメントに成功しました。"
   end
   
   def destroy
     @review = Review.find(params[:review_id])
-    @comment_reply = @review.comments.new
     @comment = Comment.find(params[:id])
     @comment.destroy
-    redirect_to request.referer
+    redirect_to request.referer, success: "コメントを削除しました。"
   end
   
   private

@@ -33,8 +33,10 @@ Rails.application.routes.draw do
     get "about" => "homes#about", as: "about"
     get "users/:id/unsubscribe", to: "users#unsubscribe", as: "unsubscribe"
     patch "users/:id/withdraw", to: "users#withdraw", as: "withdraw_user"
+    
     resources :users, only: [:show, :edit, :update]
     resources :reviews do
+      resources :reports, only: [:new, :create]
       resources :comments, only: [:create, :destroy]
       collection do
         get "confirm"
