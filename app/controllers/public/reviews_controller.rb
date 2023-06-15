@@ -9,6 +9,7 @@ class Public::ReviewsController < ApplicationController
     @comments = @review.comments.reverse_order
     @comment = Comment.new
     @comment_reply = Comment.new
+    @report = Report.new
   end
 
   def index

@@ -1,10 +1,5 @@
 Rails.application.routes.draw do
-
-  namespace :admin do
-    get 'users/index'
-    get 'users/show'
-    get 'users/edit'
-  end
+ 
   get "/search", to: "searches#search",  as: "search"
 
   # 管理者用
@@ -14,11 +9,12 @@ Rails.application.routes.draw do
 
   namespace :admin do
     root "homes#top"
-    resources :reviews, only: [:index, :show, :edit, :update, :destroy]
+    resources :reviews, only: [:index, :show, :edit, :update, :destroy] 
     resources :users, only: [:index, :show, :edit, :update]
+    resources :reports, only: [:show, :update, :destroy]
   end
 
-      # 顧客用
+  # 顧客用
   devise_for :users, skip: [:passwords], controllers: {
     registrations: "public/registrations",
     sessions: "public/sessions"

@@ -3,4 +3,28 @@
     <%= notice %>
   </div>
 <% end %>
-top
+
+<h2>レポート一覧</h2>
+<hr>
+
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>報告者</th>
+      <th>関連するレビュー</th>
+      <th>ステータス</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @reports.each do |report| %>
+      <tr>
+        <td><%= report.id %></td>
+        <td><%= report.user.nickname %></td>
+        <td><%= link_to report.review.title, review_path(report.review) %></td>
+        <td><%= report.is_solved %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+

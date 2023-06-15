@@ -20,6 +20,10 @@
         <% if @review.user == current_user %>
           <%= link_to "編集する", edit_review_path(@review), class: "btn btn-success" %>
           <%= link_to "削除する", review_path(@review), method: :delete, class: "btn btn-danger", data: { confirm: "投稿を削除しますか？" } %>
+        <% else %>
+          <%= link_to new_review_report_path(@review) do %>
+            <i class="fa-solid fa-flag"></i>
+          <% end %>
         <% end %>
       </div>
     </div>
@@ -30,4 +34,15 @@
       <%= render "public/comments/form", review: @review, comment: @comment %>
     <% end %>
   </div>
+  
+  
+<h1>新しい報告を作成</h1>
+
+<%= form_with model: [@review, @report], url: review_reports_path(@review), method: :post do |form| %>
+  <%= form.label :description, "詳細" %>
+  <%= form.text_area :description %>
+
+  <%= form.submit "報告する" %>
+<% end %>
+
 </div>
