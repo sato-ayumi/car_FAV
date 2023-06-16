@@ -7,3 +7,15 @@
     <%= f.submit "コメントする", class: "btn btn-warning text-white" %>
   </div>
 <% end %>
+
+
+<h1>新しい報告を作成</h1>
+
+<%= form_with model: [@review, @report] do |form| %>
+  <%= form.label :description, "詳細" %>
+  <%= form.text_area :description %>
+
+  <%= form.submit "報告する" %>
+<% end %>
+
+</div>

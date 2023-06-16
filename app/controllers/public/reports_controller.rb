@@ -1,15 +1,11 @@
 class Public::ReportsController < ApplicationController
   
-  def new
-    @review = Review.find(params[:review_id])
-    @report = Report.new
-  end
-  
   def create
     @review = Review.find(params[:review_id])
     @report = current_user.reports.new(report_params)
+    @report.review_id = @review.id
     if @report.save
-      redirect_to root_path, info: "ご報告ありがとうございます。確認ができましたら通知でお知らせ致します。"
+      redirect_to review_path(@review), info: "ご報告ありがとうございます。確認ができましたら通知でお知らせ致します。"
     else
       flash[:danger] = "送信に失敗しました"
       render :new

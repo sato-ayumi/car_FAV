@@ -1,8 +1,7 @@
 class Admin::ReportsController < ApplicationController
-  
-
   def show
     @report = Report.find(params[:id])
+    @related_reports = @report.review.reports.where.not(id: @report.id).where(is_solved: false)
   end
   
   def update
@@ -10,7 +9,7 @@ class Admin::ReportsController < ApplicationController
     is_solved = params[:report][:is_solved]
     
     # 関連するレポートを取得
-    related_reports = @report.review.reports
+    related_reports = @report.review.reports.where.not(id: @report.id)
     
     ActiveRecord::Base.transaction do
       # メインのレポートのステータス更新
@@ -19,26 +18,28 @@ class Admin::ReportsController < ApplicationController
       related_reports.update_all(is_solved: is_solved)
       
       # 通知作成
-      create_nitification_for_report_update(@report, is_solved)
-      create_notification_for_related_reports_update(related_reports, is_solved)
+      create_notification_for_report_update(@report)
+      create_notification_for_related_reports_update(related_reports)
     end
     
-    redirect_to root_path, success: "ステータスが更新されました。"
-  
+    redirect_to admin_root_path, success: "ステータスが更新されました。"
   end
     
   private
   
-  #  メインのレポートを報告したユーザーへの通知作成
-  def create_notification_for_report_update(report, is_solved)
-    Notification.create(user_id: report.user_id, target_type: 'Report', target_id: report.id, action: 'report_update', is_solved: is_solved)
+  # メインのレポートを報告したユーザーへの通知作成
+  def create_notification_for_report_update(report)
+    Notification.create(user: report.user, target_type: 'Report', target_id: report.id, action: 'report_update')
   end
   
   # 関連したレポートたちのそれぞれのユーザーへの通知の作成
-  def create_notification_for_related_reports_update(reports, is_solved)
-    reports.each do |report|
-      Notification.create(user_id: report.user_id, target_type: 'Report', target_id: report.id, action: 'report_update', is_solved: is_solved)
+  def create_notification_for_related_reports_update(related_reports)
+    related_reports.each do |report|
+      # 既存の通知を確認
+      existing_notification = Notification.find_by(user: report.user, target_type: 'Report', target_id: report.id, action: 'report_update')
+      unless existing_notification
+        Notification.create(user: report.user, target_type: 'Report', target_id: report.id, action: 'report_update')
+      end
     end
   end
-  
 end

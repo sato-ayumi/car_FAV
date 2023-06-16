@@ -32,7 +32,7 @@ Rails.application.routes.draw do
     
     resources :users, only: [:show, :edit, :update]
     resources :reviews do
-      resources :reports, only: [:new, :create]
+      resources :reports, only: [:create]
       resources :comments, only: [:create, :destroy]
       collection do
         get "confirm"

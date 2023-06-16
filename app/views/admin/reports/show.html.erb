@@ -1,2 +1,30 @@
-<h1>Admin::Reports#show</h1>
-<p>Find me in app/views/admin/reports/show.html.erb</p>
+<h2>レポート詳細</h2>
+<hr>
+
+<p>報告者: <%= @report.user.nickname %></p>
+<p>関連するレビュー: <%= link_to @report.review.title, review_path(@report.review) %></p>
+
+<!-- レポートの詳細情報の表示 -->
+<div>
+  <h4>詳細</h4>
+  <p><%= @report.description %></p>
+</div>
+
+<!-- ステータスの表示 -->
+<p>ステータス: <%= @report.is_solved %></p>
+
+  <%= form_with model: @report, url: admin_report_path(@report), method: :patch do |form| %>
+    <%= form.select :is_solved, options_for_select(['未対応', '対応済み'], @report.is_solved), {}, class: 'form-control' %>
+    <%= form.submit 'ステータスを更新', class: 'btn btn-primary' %>
+  <% end %>
+
+<!-- 関連する報告の一覧 -->
+<div>
+  <h4>関連する報告</h4>
+  <% @related_reports.each do |report| %>
+    <p>報告者: <%= report.user.nickname %>, ステータス: <%= report.is_solved %>, 詳細：<%= report.description %></p>
+  <% end %>
+</div>
+
+<!-- その他の表示や操作ボタンなど -->
+<!-- ... -->

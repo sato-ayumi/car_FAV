@@ -4,27 +4,48 @@
   </div>
 <% end %>
 
-<h2>レポート一覧</h2>
-<hr>
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-lg-10">
+      <h1 class="my-5">報告一覧</h1>
+      
+      <div class="col-md-10">
+        <table class="table text-center table-hover">
+          <thead class="table table-secondary">
+            <tr>
+              <th>ID</th>
+              <th>報告者</th>
+              <th>関連するレビュー</th>
+              <th>ステータス</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @reports.each do |report| %>
+              <tr>
+                <td><%= report.id %></td>
+                <td><%= report.user.nickname %></td>
+                <td><%= link_to "詳細", admin_report_path(report) %></td>
+                <td>
+                  <% if report.is_solved == false %>
+                    <span class="text-success font-weight-bold">
+                    <%= '未対応' %>
+                    </span>
+                  <% else %>
+                    <span class="text-secondary font-weight-bold" style='display: flex; justify-content: center;'>
+                      <%= '対応済み' %>
+                    </span>
+                　<% end %>
+                </td>
+                <td><%= link_to "削除", admin_report_path(report), method: :delete, class: "btn btn-danger", data: { confirm: "投稿を削除しますか？" }  %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
 
-<table>
-  <thead>
-    <tr>
-      <th>ID</th>
-      <th>報告者</th>
-      <th>関連するレビュー</th>
-      <th>ステータス</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @reports.each do |report| %>
-      <tr>
-        <td><%= report.id %></td>
-        <td><%= report.user.nickname %></td>
-        <td><%= link_to report.review.title, review_path(report.review) %></td>
-        <td><%= report.is_solved %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+
 

@@ -7,69 +7,77 @@
       <% if @notifications.all?(&:read) %>
         <p>通知はありません。</p>
       <% end %>
-      
+
       <% @notifications.each do |notification| %>
       <!--各モデルで定義したものを各変数に格納している-->
       <% user = notification.user %>
       <% target = notification.target %>
 
       <div class="list-group-item border-0">
-        <% if notification.action == 'comment' %>
-          <% if target.is_a?(Comment) %>
+        <% if notification.action == 'comment' && target.is_a?(Comment) %>
+          <% if target.parent.nil? %>
+            <% comment = notification.target %>
+            <% review = comment.review %>
 
-            <% if target.parent.nil? %>
-              <% comment = notification.target %>
-              <% review = comment.review %>
-              
-                <%= link_to review_path(review), class: "text-dark" do %>
-                  <div class="d-flex justify-content-between">
-                    <p>
-                      <strong><%= comment.user.nickname %>さん</strong>が
-                      <strong>あなたの投稿に</strong>
-                      コメントしました。
-                    </p>
-                    <p class="text-muted my-3">
-                      <%= Comment.find_by(id: notification.target_id)&.comment %>
-                    </p>
-                    <%= link_to mark_as_read_notification_path(notification.id), method: :patch, class: "text-right" do %>
-                      <i class="fa-regular fa-circle-check"></i>
-                    <% end %>
-                  </div>
-                  <hr>
-                <% end %>
-              
-            <% else %>
-              <% reply = notification.target %>
-              <% comment = reply.parent %>
-              <% review = comment.review %>
-              
-              <% unless notification.read == true %>
-                <%= link_to review_path(review), class: "text-dark" do %>
-                  <div class="d-flex justify-content-between">
-                    <p>
-                      <strong><%= reply.user.nickname %>さん</strong>が
-                      <strong>あなたのコメントに</strong>
-                      返信しました。
-                    </p>
-                    <p class="text-muted my-3">
-                      <%= Comment.find_by(id: notification.target_id)&.comment %>
-                    </p>
-                    <%= link_to mark_as_read_notification_path(notification.id), method: :patch, class: "text-right" do %>
-                      <i class="fa-regular fa-circle-check"></i>
-                    <% end %>
-                  </div>
-                  <hr>
-                <% end %>
+              <%= link_to review_path(review), class: "text-dark" do %>
+                <div class="d-flex justify-content-between">
+                  <p>
+                    <strong><%= comment.user.nickname %>さん</strong>が
+                    <strong>あなたの投稿に</strong>
+                    コメントしました。
+                  </p>
+                  <p class="text-muted my-3">
+                    <%= Comment.find_by(id: notification.target_id)&.comment %>
+                  </p>
+                  <%= link_to mark_as_read_notification_path(notification.id), method: :patch, class: "text-right" do %>
+                    <i class="fa-regular fa-circle-check"></i>
+                  <% end %>
+                </div>
+                <hr>
               <% end %>
-              
-            <% end %>
-            
+
+          <% else %>
+            <% reply = notification.target %>
+            <% comment = reply.parent %>
+            <% review = comment.review %>
+
+              <%= link_to review_path(review), class: "text-dark" do %>
+                <div class="d-flex justify-content-between">
+                  <p>
+                    <strong><%= reply.user.nickname %>さん</strong>が
+                    <strong>あなたのコメントに</strong>
+                    返信しました。
+                  </p>
+                  <p class="text-muted my-3">
+                    <%= Comment.find_by(id: notification.target_id)&.comment %>
+                  </p>
+                  <%= link_to mark_as_read_notification_path(notification.id), method: :patch, class: "text-right" do %>
+                    <i class="fa-regular fa-circle-check"></i>
+                  <% end %>
+                </div>
+                <hr>
+              <% end %>
+          <% end %>
+        <% else notification.action == 'report_update' %>
+          <% if target.is_a?(Report) %>
+            <% report = target %>
+            <div class="d-flex justify-content-between">
+              <p>
+                <strong>管理者</strong>からのお知らせです。<br>
+                ご報告いただいた内容は対応いたしました。<br>
+                ご協力ありがとうございました。
+              </p>
+              <%= link_to mark_as_read_notification_path(notification.id), method: :patch, class: "text-right" do %>
+                <i class="fa-regular fa-circle-check"></i>
+              <% end %>
+            </div>
+            <p>報告内容: <%= report.description %></p>
+            <hr>
           <% end %>
         <% end %>
       </div>
-      
+
       <% end %>
     </div>
   </div>
 </div>
-
