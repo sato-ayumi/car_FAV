@@ -5,7 +5,7 @@
         メーカーで絞り込む
       </button>
       <div class="collapse" id="collapseExample">
-        <%= form_with url: admin_root_path, method: :get do %>
+        <%= form_with url: admin_reviews_path, method: :get do %>
           <table>
           <% Review.maker_options.each_slice(4) do |makers_slice| %>
             <tr>

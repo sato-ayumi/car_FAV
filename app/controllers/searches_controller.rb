@@ -12,6 +12,7 @@ class SearchesController < ApplicationController
                else
                  Review.where('title LIKE ?', "%#{query}%").page(params[:page]).reverse_order
                end
+    @results_counts = @results.total_count
   end
 
 end

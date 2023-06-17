@@ -8,8 +8,8 @@ class Review < ApplicationRecord
   has_many :notifications, as: :target, dependent: :destroy
   has_many :reports, dependent: :destroy
 
-  validates :title, presence: true
-  validates :body, presence: true, length: { maximum: 150 }
+  validates :title, presence: true, length: { maximum: 20 }
+  validates :body, presence: true, length: { maximum: 200 }
   validates :maker, presence: true
   validates :review_image, presence: true
 

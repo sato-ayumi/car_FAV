@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_06_14_095935) do
+ActiveRecord::Schema.define(version: 2023_06_17_100654) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -53,9 +53,9 @@ ActiveRecord::Schema.define(version: 2023_06_14_095935) do
   end
 
   create_table "comments", force: :cascade do |t|
-    t.text "comment"
-    t.integer "user_id"
-    t.integer "review_id"
+    t.text "comment", null: false
+    t.integer "user_id", null: false
+    t.integer "review_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "parent_id"
@@ -77,7 +77,7 @@ ActiveRecord::Schema.define(version: 2023_06_14_095935) do
   create_table "reports", force: :cascade do |t|
     t.integer "user_id", null: false
     t.integer "review_id", null: false
-    t.text "description"
+    t.text "description", null: false
     t.boolean "is_solved", default: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -86,11 +86,11 @@ ActiveRecord::Schema.define(version: 2023_06_14_095935) do
   end
 
   create_table "reviews", force: :cascade do |t|
-    t.string "title"
-    t.text "body"
-    t.string "maker"
-    t.integer "user_id"
-    t.float "star"
+    t.string "title", null: false
+    t.text "body", null: false
+    t.string "maker", null: false
+    t.integer "user_id", null: false
+    t.float "star", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "status", default: 0, null: false
