@@ -24,6 +24,12 @@ class Admin::ReportsController < ApplicationController
     
     redirect_to admin_root_path, success: "ステータスが更新されました。"
   end
+  
+  def destroy
+    @report = Report.find(params[:id])
+    @report.destroy
+    redirect_to admin_root_path, notice: "報告を削除しました。"
+  end
     
   private
   

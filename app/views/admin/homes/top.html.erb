@@ -37,7 +37,13 @@
                     </span>
                 　<% end %>
                 </td>
-                <td><%= link_to "削除", admin_report_path(report), method: :delete, class: "btn btn-danger", data: { confirm: "投稿を削除しますか？" }  %></td>
+                <td>
+                  <% if report.is_solved == false %>
+                    <%= link_to "削除", admin_report_path(report), method: :delete, class: "btn btn-danger", data: { confirm: "未対応の報告です。本当に削除しますか？" }  %>
+                  <% else %>
+                    <%= link_to "削除", admin_report_path(report), method: :delete, class: "btn btn-danger", data: { confirm: "本当に削除しますか？" }  %>
+                  <% end %>
+                 </td>
               </tr>
             <% end %>
           </tbody>
