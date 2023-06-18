@@ -22,7 +22,7 @@ class Admin::ReportsController < ApplicationController
       create_notification_for_related_reports_update(related_reports)
     end
     
-    redirect_to admin_root_path, success: "ステータスが更新されました。"
+    redirect_to admin_root_path, notice: "ステータスが更新されました。"
   end
   
   def destroy

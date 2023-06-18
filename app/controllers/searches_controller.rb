@@ -8,9 +8,9 @@ class SearchesController < ApplicationController
     @results = if tags.present?
                  Review.joins(:tags)
                        .where('tags.tag_name IN (?)', tags).page(params[:page]).reverse_order
-                       .where('title LIKE ?', "%#{query}%").page(params[:page]).reverse_order
+                       .where('title LIKE ? OR body LIKE ?', "%#{query}%", "%#{query}%").page(params[:page]).reverse_order
                else
-                 Review.where('title LIKE ?', "%#{query}%").page(params[:page]).reverse_order
+                 Review.where('title LIKE ? OR body LIKE ?', "%#{query}%", "%#{query}%").page(params[:page]).reverse_order
                end
     @results_counts = @results.total_count
   end

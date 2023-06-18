@@ -38,14 +38,14 @@ class Review < ApplicationRecord
 
   # メーカー （０= トヨタ  / １= 日産 / ２= ホンダ / ３= マツダ / ４= スズキ / 5 = スバル / 6 = その他 / 7 = 外国産  ）
   enum maker: { toyota: 0, nissan: 1, honda: 2, mazda: 3, suzuki: 4, subaru: 5, others: 6, foreign: 7 }
-  
+
   # ステータス　（0 = 公開 / 1 = 非公開）
   enum status: { published: 0, draft: 1 }
-  
+
   # makerカラムの日本語化
   def self.maker_options
     # .mapで37行目をkey, _vlueで受け取り、I18n.tで該当の日本語を返す
     makers.map { |key, _value| [I18n.t("enums.review.maker.#{key}"), key] }
   end
-  
+
 end
