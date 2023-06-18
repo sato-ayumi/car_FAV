@@ -1,21 +1,9 @@
 <%= form_with model: [review, comment] do |f| %>
   <div class="form-group">
     <%= f.label "コメントを投稿する" %>
-    <%= f.text_area :comment, placeholder: "コメントを入力してください", class: "form-control" %>
+    <%= f.text_area :comment, class: "form-control", placeholder: "コメントを入力してください",  required: true %>
   </div>
   <div class="text-right mb-5">
     <%= f.submit "コメントする", class: "btn btn-warning text-white" %>
   </div>
 <% end %>
-
-
-<h1>新しい報告を作成</h1>
-
-<%= form_with model: [@review, @report] do |form| %>
-  <%= form.label :description, "詳細" %>
-  <%= form.text_area :description %>
-
-  <%= form.submit "報告する" %>
-<% end %>
-
-</div>

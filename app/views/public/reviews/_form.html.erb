@@ -10,10 +10,10 @@
             <div class="input-group-prepend">
               <span class="input-group-text"><i class="fas fa-building"></i></span>
             </div>
-            <%= f.text_field :title, class:"form-control", placeholder:"タイトル" %>
+            <%= f.text_field :title, class:"form-control", placeholder:"タイトル",  required: true %>
           </div>
           <div class="input-group mb-3">
-          <%= f.text_area :body, class:"form-control", rows:"3", placeholder:"良かった点や後悔した点をご記入ください。" %>
+          <%= f.text_area :body, class:"form-control", rows:"3", placeholder:"良かった点や後悔した点をご記入ください。",  required: true %>
           </div>
           
           <div class="input-group mb-3">

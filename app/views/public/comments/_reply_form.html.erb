@@ -1,7 +1,7 @@
 <%= form_with model: [review, comment_reply] do |f| %>
   <div class="form-group">
     <%= f.label "コメントに返信する" %>
-    <%= f.text_area :comment, placeholder: "コメントに返信してみよう", class: "form-control" %>
+    <%= f.text_area :comment, class: "form-control", placeholder: "コメントに返信してみよう",  required: true %>
     <!--送信先のコメントのidをparent_idに格納-->
     <%= f.hidden_field :parent_id, value: comment.id %>
   </div>

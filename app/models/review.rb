@@ -47,5 +47,7 @@ class Review < ApplicationRecord
     # .mapで37行目をkey, _vlueで受け取り、I18n.tで該当の日本語を返す
     makers.map { |key, _value| [I18n.t("enums.review.maker.#{key}"), key] }
   end
-
+  
+  
+  
 end

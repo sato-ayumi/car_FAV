@@ -26,12 +26,17 @@
                     <strong>あなたの投稿に</strong>
                     コメントしました。
                   </p>
-                  <p class="text-muted my-3">
-                    <%= Comment.find_by(id: notification.target_id)&.comment %>
-                  </p>
                   <%= link_to mark_as_read_notification_path(notification.id), method: :patch, class: "text-right" do %>
                     <i class="fa-regular fa-circle-check"></i>
                   <% end %>
+                </div>
+                <div class="d-flex justify-content-between">
+                  <p class="text-muted my-3">
+                    <%= Comment.find_by(id: notification.target_id)&.comment %>
+                  </p>
+                  <p class="text-muted my-3">
+                    <%= time_ago_in_words(notification.created_at) %>前
+                  </p>
                 </div>
                 <hr>
               <% end %>
@@ -41,22 +46,27 @@
             <% comment = reply.parent %>
             <% review = comment.review %>
 
-              <%= link_to review_path(review), class: "text-dark" do %>
-                <div class="d-flex justify-content-between">
-                  <p>
-                    <strong><%= reply.user.nickname %>さん</strong>が
-                    <strong>あなたのコメントに</strong>
-                    返信しました。
-                  </p>
-                  <p class="text-muted my-3">
-                    <%= Comment.find_by(id: notification.target_id)&.comment %>
-                  </p>
-                  <%= link_to mark_as_read_notification_path(notification.id), method: :patch, class: "text-right" do %>
-                    <i class="fa-regular fa-circle-check"></i>
-                  <% end %>
-                </div>
-                <hr>
-              <% end %>
+            <%= link_to review_path(review), class: "text-dark" do %>
+              <div class="d-flex justify-content-between">
+                <p>
+                  <strong><%= reply.user.nickname %>さん</strong>が
+                  <strong>あなたのコメントに</strong>
+                  返信しました。
+                </p>
+                <%= link_to mark_as_read_notification_path(notification.id), method: :patch, class: "text-right" do %>
+                  <i class="fa-regular fa-circle-check"></i>
+                <% end %>
+              </div>
+              <div class="d-flex justify-content-between">
+                <p class="text-muted my-3">
+                  <%= Comment.find_by(id: notification.target_id)&.comment %>
+                </p>
+                <p class="text-muted my-3">
+                  <%= time_ago_in_words(notification.created_at) %>前
+                </p>
+              </div>
+              <hr>
+            <% end %>
           <% end %>
         <% else notification.action == 'report_update' %>
           <% if target.is_a?(Report) %>
@@ -71,7 +81,12 @@
                 <i class="fa-regular fa-circle-check"></i>
               <% end %>
             </div>
-            <p>報告内容: <%= report.description %></p>
+            <div class="d-flex justify-content-between">
+              <p>報告内容: <%= report.description %></p>
+              <p class="text-muted my-3">
+                <%= time_ago_in_words(notification.created_at) %>前
+              </p>
+            </div>
             <hr>
           <% end %>
         <% end %>
