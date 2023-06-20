@@ -28,6 +28,7 @@ class Public::UsersController < ApplicationController
   end
 
   def withdraw
+    @user = current_user
     @user.update(is_deleted: true)
     #セッション情報を全て削除（セキュリティ面のリスク回避のため）
     reset_session
@@ -47,12 +48,12 @@ class Public::UsersController < ApplicationController
     end
   end
 
-  
+
   def ensure_guest_user
     @user = User.find(params[:id])
     if @user.nickname == "guestuser"
       redirect_to user_path(current_user) , info: 'ゲストユーザーはプロフィール編集画面へ遷移できません。'
     end
-  end 
+  end
 
 end

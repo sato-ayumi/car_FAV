@@ -48,6 +48,4 @@ class Review < ApplicationRecord
     makers.map { |key, _value| [I18n.t("enums.review.maker.#{key}"), key] }
   end
   
-  
-  
 end

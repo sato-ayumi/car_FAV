@@ -1,3 +1,12 @@
+ <% if notice %>
+   <div class="alert alert-success">
+     <%= notice %>
+   </div>
+<% end %>
+<% if info %>
+   <%= render "layouts/flash" %>
+<% end %>
+
 <div class="container">
   <div class="row mt-5">
     <div class='mx-auto col-11 col-sm-10 col-lg-8 col-xl-6'>

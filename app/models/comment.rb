@@ -15,7 +15,7 @@ class Comment < ApplicationRecord
 
   # 投稿に対してコメントされたユーザーへの通知の生成
   def create_notification_for_review_comment
-    Notification.create(user: review.user, target: self, action: "comment")
+    Notification.create(user: review.user, target: self, action: "comment") unless parent.present?
   end
 
   # コメントに対して返信されたユーザーへの通知の生成

@@ -1,7 +1,6 @@
-<div class="card-list-containar d-flex flex-wrap justify-content-between">
-  
+<div class="card-list-containar d-flex flex-wrap justify-content-around">
   <% reviews.each do |review| %>
-    <div class="card mt-4 shadow-lg  mx-auto">
+    <div class="card mt-4 shadow-lg mx-3">
       <%= link_to review_path(review) do %>
         <%= image_tag review.review_image, size: "400x400", class: "card-img" %>
       <% end %>
@@ -19,7 +18,6 @@
       </div>
     </div>
   <% end %>
-  
 </div>
 <div class='row justify-content-center mt-4'>
   <%= paginate reviews, theme: "twitter-bootstrap-4" %>

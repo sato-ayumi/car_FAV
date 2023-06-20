@@ -42,26 +42,23 @@
       <% end %>
     </div>
   </div>
-</div>
-
-
-</div>
-<div class="row mt-5">
-    <% unless @reviews.empty? %>
+  <div class="row mt-5">
+  <% unless @reviews.empty? %>
     <h4 class="my-2 ml-4">
       <% if @user == current_user %>
         自分の投稿一覧
       <% else %>
-          <%= @user.nickname %>さんの投稿一覧
-         （全<%= @reviews.count %>件）
-        <% end %>
+        <%= @user.nickname %>さんの投稿一覧
+        （全<%= @reviews.count %>件）
+      <% end %>
     </h4>
     <%= render "public/reviews/index", reviews: @reviews %>
-    <% else %>
-    <h3 class="my-2 ml-4">
-      まだ投稿はありません。
-    </h3>
-    <div><%= link_to "投稿してみましょう！", new_review_path %></div>
-    
+  <% else %>
+    <div class="col-lg-6 mt-5">
+      <h4>まだ投稿はありません。</h4>
+      <% if @user == current_user %>
+        <%= link_to "投稿してみましょう！", new_review_path %>
+      <% end %>
+    </div>
   <% end %>
-  </div>
+</div>
