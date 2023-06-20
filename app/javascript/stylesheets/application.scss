@@ -1,7 +1,10 @@
 @use '~bootstrap/scss/bootstrap';
+@import url('https://fonts.googleapis.com/css2?family=Kiwi+Maru&family=Zen+Old+Mincho:wght@400;500;600&display=swap');
 
-  // body {
-  //   background-image: url(../../assets/images/2375154_s.jpg);
-  //   background-size: cover; 
-  //   color: white;
-  // }
+  body {
+    font-family: 'Kiwi Maru', serif;
+    background-color: #bfbbbb;
+    header {
+      background-color: #7d8e95;
+    }
+  }

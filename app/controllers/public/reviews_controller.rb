@@ -6,6 +6,7 @@ class Public::ReviewsController < ApplicationController
 
   def show
     @review = Review.find(params[:id])
+    redirect_to reviews_path, info: "非公開の投稿です。" if should_hide_review?
     @comments = @review.comments.reverse_order
     @comment = Comment.new
     @comment_reply = Comment.new
@@ -72,5 +73,9 @@ class Public::ReviewsController < ApplicationController
   def review_params
     params.require(:review).permit(:review_image, :title, :body, :maker, :star, :status)
   end
-
+  
+  def should_hide_review?
+    @review.user.is_deleted || @review.status == 'non_public' || @review.user != current_user
+  end
+  
 end
