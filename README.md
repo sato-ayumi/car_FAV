@@ -18,7 +18,10 @@
 - お気に入りの車にするために情報を探したい時
 
 ## 設計書
-<...>
+- ワイヤーフレーム：
+- ER図：(https://drive.google.com/file/d/1i-B338KdxkHPYKpzHGinVPdHvPrM68S1/view?usp=sharing)
+- テーブル定義書：(https://docs.google.com/spreadsheets/d/1DBCIYMCefcK-pcE2ELDM2xywhQEQdAvLSKqJvUum4p0/edit?usp=sharing)
+- アプリケーション詳細設計：(https://docs.google.com/spreadsheets/d/1IjectHzmjP2uJDlnGKQyuYiUflSeUPpFnC5X1YAD-jI/edit?usp=sharing)
 
 ## 開発環境
 - OS：Linux(CentOS)
