@@ -75,7 +75,7 @@ class Public::ReviewsController < ApplicationController
   end
   
   def should_hide_review?
-    @review.user.is_deleted || @review.status == 'non_public' || @review.user != current_user
+    @review.user.is_deleted || @review.status == 'draft' && @review.user != current_user
   end
   
 end

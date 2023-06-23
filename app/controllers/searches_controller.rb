@@ -9,8 +9,10 @@ class SearchesController < ApplicationController
                  Review.joins(:tags)
                        .where('tags.tag_name IN (?)', tags).page(params[:page]).reverse_order
                        .where('title LIKE ? OR body LIKE ?', "%#{query}%", "%#{query}%").page(params[:page]).reverse_order
+                       .where(status: :published)
                else
                  Review.where('title LIKE ? OR body LIKE ?', "%#{query}%", "%#{query}%").page(params[:page]).reverse_order
+                       .where(status: :published)
                end
     @results_counts = @results.total_count
   end
