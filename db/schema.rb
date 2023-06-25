@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_06_17_100654) do
+ActiveRecord::Schema.define(version: 2023_06_25_030010) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -90,7 +90,7 @@ ActiveRecord::Schema.define(version: 2023_06_17_100654) do
     t.text "body", null: false
     t.string "maker", null: false
     t.integer "user_id", null: false
-    t.float "star", null: false
+    t.float "star"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "status", default: 0, null: false
@@ -125,8 +125,6 @@ ActiveRecord::Schema.define(version: 2023_06_17_100654) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "comments", "comments", column: "parent_id"
   add_foreign_key "reports", "reviews"
   add_foreign_key "reports", "users"
