@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
- 
+
   get "/search", to: "searches#search",  as: "search"
 
   # 管理者用
@@ -9,7 +9,7 @@ Rails.application.routes.draw do
 
   namespace :admin do
     root "homes#top"
-    resources :reviews, only: [:index, :show, :edit, :update, :destroy] 
+    resources :reviews, only: [:index, :show, :edit, :update, :destroy]
     resources :users, only: [:index, :show, :edit, :update]
     resources :reports, only: [:show, :update, :destroy]
   end
@@ -38,12 +38,14 @@ Rails.application.routes.draw do
         get "confirm"
       end
     end
-    resources :notifications do
+    resources :notifications, only: [:index] do
       member do
         patch :mark_as_read
       end
+      collection do
+        patch :all_mark_as_read
+      end
     end
   end
-
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

@@ -1,7 +1,14 @@
 <div class="container">
   <div class="row justify-content-center ">
     <div class="col-7">
-      <h2 class="mt-4">通知一覧</h2>
+      <div class="d-flex justify-content-between mt-3">
+        <h2 class="mt-4">通知一覧</h2>
+        <div>
+          <% if current_user.unread_notifications.any? %>
+            <%= link_to "全て既読にする", all_mark_as_read_notifications_path, method: :patch, class: "btn btn-primary" %>
+          <% end %>
+        </div>
+      </div>
       <hr>
       <!--通知が全て既読状態の場合-->
       <% if @notifications.all?(&:read) %>

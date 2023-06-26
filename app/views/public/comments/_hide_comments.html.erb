@@ -14,7 +14,11 @@
     <%= safe_join(comment.comment.split("\n"),tag(:br))%>
   </div>
   <div class="text-right">
-    
+    <% if comment.user == current_user %>
+      <div>
+        <%= link_to "削除する", review_comment_path(comment.review), method: :delete, class: "btn btn-outline-secondary" %>
+      </div>
+    <% end %> 
   </div>
   
   <hr class="d-none">
@@ -32,16 +36,14 @@
             <%= reply.created_at.strftime('%Y/%m/%d') %>
           </div>
         </div>
-          <div class="card-body border rounded mb-3">
-            <%= safe_join(reply.comment.split("\n"),tag(:br))%>
-            <% if reply.user == current_user %>
-              <div class="">
-                <%= link_to "削除する", review_comment_path(comment.review, reply), method: :delete, class: "btn btn-outline-secondary" %>
-              </div>
-            <% end %>
-            
-          </div>
-
+        <div class="card-body border rounded mb-3">
+          <%= safe_join(reply.comment.split("\n"),tag(:br))%>
+          <% if reply.user == current_user %>
+            <div class="text-right">
+              <%= link_to "削除する", review_comment_path(comment.review, reply), method: :delete, class: "btn btn-outline-secondary" %>
+            </div>
+          <% end %>
+        </div>
       </div>
     <% end %>
     <% if comment.review.user == current_user %>
