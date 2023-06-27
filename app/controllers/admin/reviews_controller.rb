@@ -12,8 +12,12 @@ class Admin::ReviewsController < ApplicationController
   end
 
   def show
-    @review = Review.find(params[:id])
-    @comments = @review.comments.reverse_order
+    begin
+      @review = Review.find(params[:id])
+      @comments = @review.comments.reverse_order
+    rescue ActiveRecord::RecordNotFound
+      redirect_to admin_reviews_path, info: "投稿が見つかりませんでした。"
+    end
   end
 
   def edit

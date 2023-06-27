@@ -5,25 +5,29 @@ class Public::ReviewsController < ApplicationController
   end
 
   def show
-    @review = Review.find(params[:id])
-    redirect_to reviews_path, info: "非公開の投稿です。" if should_hide_review?
-    @comments = @review.comments.reverse_order
-    @comment = Comment.new
-    @comment_reply = Comment.new
-    @report = Report.new
+    begin
+      @review = Review.find(params[:id])
+      redirect_to reviews_path, info: "非公開の投稿です。" if should_hide_review?
+      @comments = @review.comments.reverse_order
+      @comment = Comment.new
+      @comment_reply = Comment.new
+      @report = Report.new
+    rescue ActiveRecord::RecordNotFound
+      redirect_to reviews_path, info: "投稿が見つかりませんでした。"
+    end
   end
 
   def index
     @reviews = Review.joins(:user).where(users: { is_deleted: false }, reviews: { status: "published" })
-    
+
     if params[:makers].present?
       makers = params[:makers].reject(&:blank?)
       @reviews = @reviews.where(maker: makers)
     end
-    
+
     @reviews_counts = @reviews.count
     @reviews = @reviews.page(params[:page]).reverse_order
-       
+
   end
 
   def confirm
@@ -73,9 +77,9 @@ class Public::ReviewsController < ApplicationController
   def review_params
     params.require(:review).permit(:review_image, :title, :body, :maker, :star, :status)
   end
-  
+
   def should_hide_review?
     @review.user.is_deleted || @review.status == 'draft' && @review.user != current_user
   end
-  
+
 end
