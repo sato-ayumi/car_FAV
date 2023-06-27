@@ -12,9 +12,7 @@ class Public::CommentsController < ApplicationController
   end
   
   def destroy
-    @review = Review.find(params[:review_id])
-    @comment = Comment.find(params[:id])
-    @comment.destroy
+    Comment.find(params[:id]).destroy
     redirect_to request.referer, success: "コメントを削除しました。"
   end
   

@@ -16,11 +16,11 @@
   <div class="text-right">
     <% if comment.user == current_user %>
       <div>
-        <%= link_to "削除する", review_comment_path(comment.review), method: :delete, class: "btn btn-outline-secondary" %>
+        <%= link_to "削除する", review_comment_path(comment.review, comment), method: :delete, class: "btn btn-outline-secondary" %>
       </div>
-    <% end %> 
+    <% end %>
   </div>
-  
+
   <hr class="d-none">
   <!--返信コメントの表示-->
     <% comment.replies.each do |reply| %>
@@ -49,6 +49,6 @@
     <% if comment.review.user == current_user %>
       <%= render "public/comments/reply_form", review: review, comment: comment, comment_reply: comment_reply %>
     <% end %>
-    
+
   <hr>
 </div>

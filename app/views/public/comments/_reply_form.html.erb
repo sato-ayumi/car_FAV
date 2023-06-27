@@ -5,7 +5,7 @@
     <!--送信先のコメントのidをparent_idに格納-->
     <%= f.hidden_field :parent_id, value: comment.id %>
   </div>
-  <div class="text-light">
+  <div class="text-right">
     <%= f.submit "返信する", class: "btn btn-warning text-white" %>
   </div>
 <% end %>
