@@ -1,10 +1,9 @@
 class Public::UsersController < ApplicationController
-
+  before_action :set_user, only: [:show, :edit, :update]
   before_action :is_matching_login_user, only: [:edit, :update]
   before_action :ensure_guest_user, only: [:edit]
 
   def show
-    @user = User.find(params[:id])
     if @user.is_deleted
       redirect_to reviews_path, info: "退会済みのユーザーです。"
     end
@@ -12,13 +11,11 @@ class Public::UsersController < ApplicationController
   end
 
   def edit
-    @user = User.find(params[:id])
   end
 
   def update
-    if @user = User.find(params[:id])
-       @user.update(user_params)
-       redirect_to user_path(@user), success: "会員情報の更新が完了しました。"
+    if @user.update(user_params)
+      redirect_to user_path(@user), success: "会員情報の更新が完了しました。"
     else
       render :edit
     end
@@ -36,20 +33,24 @@ class Public::UsersController < ApplicationController
   end
 
   private
+  
+  def set_user
+    @user = User.find(params[:id])
+  end
 
   def user_params
     params.require(:user).permit(:nickname, :profile_image, :email)
   end
-
+  
+  # 自分以外のユーザーの編集をさせないためのメソッド
   def is_matching_login_user
-    @user = User.find(params[:id])
     unless @user == current_user
       redirect_to user_path(current_user)
     end
   end
-
+  
+  # ゲストユーザーがユーザー情報を
   def ensure_guest_user
-    @user = User.find(params[:id])
     if @user.nickname == "guestuser"
       redirect_to user_path(current_user) , info: 'ゲストユーザーはプロフィール編集画面へ遷移できません。'
     end

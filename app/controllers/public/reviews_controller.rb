@@ -1,4 +1,5 @@
 class Public::ReviewsController < ApplicationController
+  before_action :set_review, only: [:edit, :update, :destroy]
 
   def new
     @review = Review.new
@@ -47,14 +48,12 @@ class Public::ReviewsController < ApplicationController
   end
 
   def edit
-    @review = Review.find(params[:id])
     unless @review.user.id == current_user.id
        redirect_to reviews_path
     end
   end
 
   def update
-    @review = Review.find(params[:id])
     unless @review.user.id == current_user.id
       edirect_to reviews_path
     end
@@ -66,12 +65,15 @@ class Public::ReviewsController < ApplicationController
   end
 
   def destroy
-    @review = Review.find(params[:id])
     @review.destroy
     redirect_to user_path(@review.user), success: "投稿を削除しました。"
   end
 
   private
+
+  def set_review
+    @review = Review.find(params[:id])
+  end
 
   def review_params
     params.require(:review).permit(:review_image, :title, :body, :maker, :star, :status)

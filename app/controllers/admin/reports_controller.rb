@@ -1,13 +1,12 @@
 class Admin::ReportsController < ApplicationController
+  before_action :set_report, only: [:show, :update, :destroy]
+  
   def show
-    @report = Report.find(params[:id])
     @related_reports = @report.review.reports.where.not(id: @report.id).where(is_solved: false)
   end
   
   def update
-    @report = Report.find(params[:id])
     is_solved = params[:report][:is_solved]
-    
     # 関連するレポートを取得（メインのレポートを除いて）
     related_reports = @report.review.reports.where.not(id: @report.id)
     
@@ -21,17 +20,19 @@ class Admin::ReportsController < ApplicationController
       create_notification_for_report_update(@report)
       create_notification_for_related_reports_update(related_reports)
     end
-    
     redirect_to admin_root_path, notice: "ステータスが更新されました。"
   end
   
   def destroy
-    @report = Report.find(params[:id])
     @report.destroy
     redirect_to admin_root_path, notice: "報告を削除しました。"
   end
     
   private
+  
+  def set_report
+    @report = Report.find(params[:id])
+  end
   
   # メインのレポートを報告したユーザーへの通知作成
   def create_notification_for_report_update(report)
@@ -48,4 +49,5 @@ class Admin::ReportsController < ApplicationController
       end
     end
   end
+  
 end
