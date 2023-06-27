@@ -20,9 +20,8 @@
       </div>
     <% end %>
   </div>
-
   <hr class="d-none">
-  <!--返信コメントの表示-->
+    <!--返信コメントの表示-->
     <% comment.replies.each do |reply| %>
       <div class="containar w-50 pt-3 ml-5">
         <div class="row d-flex align-items-center pb-3">
@@ -49,6 +48,5 @@
     <% if comment.review.user == current_user %>
       <%= render "public/comments/reply_form", review: review, comment: comment, comment_reply: comment_reply %>
     <% end %>
-
   <hr>
 </div>

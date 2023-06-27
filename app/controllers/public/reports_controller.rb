@@ -10,7 +10,6 @@ class Public::ReportsController < ApplicationController
       flash[:danger] = "送信に失敗しました"
       render :new
     end
-    
   end
   
   private

@@ -15,14 +15,14 @@
           <div class="input-group mb-3">
           <%= f.text_area :body, class:"form-control", rows:"3", placeholder:"良かった点や後悔した点をご記入ください。",  required: true %>
           </div>
-          
+
           <div class="input-group mb-3">
             <div class="input-group-prepend">
               <label class="input-group-text" for="inputGroupSelect01">メーカー</label>
             </div>
               <%= f.select :maker, Review.maker_options %>
           </div>
-          
+
           <div class="input-group mb-3">
             <div class="input-group-prepend">
               <label class="input-group-text" for="inputGroupSelect01">タグ</label>
@@ -30,7 +30,7 @@
               <%= f.text_field :tag_name %>
               <div class="mt-2">（複数作成する場合スペースで区切ってください。）</div>
           </div>
-          
+
           <div class="input-group mb-3 mt-4">
             <div class="input-group-prepend">
               <span class="input-group-text mr-2">レビュー評価</span>
@@ -41,9 +41,9 @@
                 $(document).on('turbolinks:load', function() {
                   let elem = document.querySelector('#star');
                   if (elem == null) return;
-            
+
                   elem.innerHTML = ""
-                  let opt = {  
+                  let opt = {
                     starOn: "<%= asset_path('star-on.png') %>",
                     starOff: "<%= asset_path('star-off.png') %>",
                     starHalf: "<%= asset_path('star-half.png') %>",
@@ -58,7 +58,7 @@
               </div>
             <% end %>
           </div>
-          
+
           <div class="form-check form-check-inline my-2">
             <%= f.radio_button :status, "published" %>
             <%= f.label :status, Review.statuses_i18n[:published], class: "form-check-label mx-3" %>
@@ -68,8 +68,6 @@
             <%= f.label :status, Review.statuses_i18n[:draft], class: "form-check-label mx-3" %>
           </div>
           <div>（ 公開しない場合はマイページからのみ閲覧・編集が可能です。）</div>
-		      
-          
           <hr>
           <%= f.submit '投稿', class:"btn btn-lg btn-block btn-info mt-4" %>
         <% end %>

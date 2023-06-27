@@ -17,22 +17,21 @@
           <td><%= @user.nickname %></td>
         </tr>
       </table>
-        <%= link_to edit_admin_user_path(@user), class: "btn btn-outline-secondary btn-block " do %>
-          <i class="fas fa-user-cog"></i>
-        <% end %>
+      <%= link_to edit_admin_user_path(@user), class: "btn btn-outline-secondary btn-block " do %>
+        <i class="fas fa-user-cog"></i>
+      <% end %>
     </div>
   </div>
-</div>
-
-<div class="row my-5">
-  <% if @user.is_deleted == false %>
-    <h4 class="my-2 ml-4">
-      <%= @user.nickname %>さんの投稿一覧（全<%= @reviews.count %>件）
-    </h4>
-    <%= render "admin/reviews/index", reviews: @reviews %>
-  <% else %>
-    <h3 class="col text-center mt-5">
-      このユーザーは退会済みです。
-    </h3>
-  <% end %>
+  <div class="row my-5">
+    <% if @user.is_deleted == false %>
+      <h4 class="my-2 ml-4">
+        <%= @user.nickname %>さんの投稿一覧（全<%= @reviews.count %>件）
+      </h4>
+      <%= render "admin/reviews/index", reviews: @reviews %>
+    <% else %>
+      <h3 class="col text-center mt-5">
+        このユーザーは退会済みです。
+      </h3>
+    <% end %>
+  </div>
 </div>

@@ -8,7 +8,7 @@ class Admin::ReportsController < ApplicationController
     @report = Report.find(params[:id])
     is_solved = params[:report][:is_solved]
     
-    # 関連するレポートを取得
+    # 関連するレポートを取得（メインのレポートを除いて）
     related_reports = @report.review.reports.where.not(id: @report.id)
     
     ActiveRecord::Base.transaction do

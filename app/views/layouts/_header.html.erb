@@ -1,73 +1,70 @@
 <header class="shadow-sm">
   <nav class="navbar navbar-expand-lg navbar-light">
     <div class="container my-4">
-
-        <div class="navbar-brand">
-          <% if admin_signed_in? %>
-            <%= link_to "CarFav", admin_root_path, class: "nav-link text-dark" %>
-          <% else %>
-            <%= link_to "CarFav", root_path, class: "nav-link text-dark" %>
+      <div class="navbar-brand">
+        <% if admin_signed_in? %>
+          <%= link_to "CarFav", admin_root_path, class: "nav-link text-dark" %>
+        <% else %>
+          <%= link_to "CarFav", root_path, class: "nav-link text-dark" %>
+        <% end %>
+      </div>
+      <% if user_signed_in?  || admin_signed_in? %>
+        <div class="search">
+          <%= form_with url: search_path, method: :get do |form| %>
+            <%= form.text_field :query, placeholder: 'キーワードを入力してください', size: "30" %>
+            <%= form.text_field :tags, placeholder: 'タグを入力してください', size: "25" %>
+            <%= form.submit '検索' %>
           <% end %>
         </div>
-
-        <% if user_signed_in?  || admin_signed_in? %>
-          <div class="search">
-            <%= form_with url: search_path, method: :get do |form| %>
-              <%= form.text_field :query, placeholder: 'キーワードを入力してください', size: "30" %>
-              <%= form.text_field :tags, placeholder: 'タグを入力してください', size: "25" %>
-              <%= form.submit '検索' %>
-            <% end %>
-          </div>
-        <% end %>
-
-        <div>
-          <ul class="navbar-nav mr-auto">
-            <% if user_signed_in? %>
+      <% end %>
+      <div>
+        <ul class="navbar-nav mr-auto">
+          <% if user_signed_in? %>
+            <li class="nav-item">
+              <%= link_to "My page", user_path(current_user), class: "nav-link" %>
+            </li>
+            <li class="nav-item">
+              <%= link_to "Reviews", reviews_path, class: "nav-link" %>
+            </li>
+            <li class="nav-item">
+              <%= link_to "New review", new_review_path, class: "nav-link" %>
+            </li>
+            <li class="nav-item">
+              <%= link_to "Log out", destroy_user_session_path, method: :delete, class: "nav-link" %>
+            </li>
+            <% unless current_user.notifications.all?(&:read) %>
               <li class="nav-item">
-                <%= link_to "My page", user_path(current_user), class: "nav-link" %>
-              </li>
-              <li class="nav-item">
-                <%= link_to "Reviews", reviews_path, class: "nav-link" %>
-              </li>
-              <li class="nav-item">
-                <%= link_to "New review", new_review_path, class: "nav-link" %>
-              </li>
-              <li class="nav-item">
-                <%= link_to "Log out", destroy_user_session_path, method: :delete, class: "nav-link" %>
-              </li>
-              <% unless current_user.notifications.all?(&:read) %>
-                <li class="nav-item">
-                  <%= link_to notifications_path, class: "nav-link" do %>
-                    <i class="fa-solid fa-bell"></i>
-                  <% end %>
-                </li>
-              <% end %>
-            <% elsif admin_signed_in? %>
-              <li class="nav-item">
-                <%= link_to "Reports", admin_root_path, class: "nav-link" %>
-              </li>
-              <li class="nav-item">
-                <%= link_to "Users", admin_users_path, class: "nav-link" %>
-              </li>
-              <li class="nav-item">
-                <%= link_to "Reviews", admin_reviews_path, class: "nav-link" %>
-              </li>
-              <li class="nav-item">
-                <%= link_to "Log out", destroy_admin_session_path, method: :delete, class: "nav-link" %>
-              </li>
-            <% else %>
-               <li class="nav-item">
-                <%= link_to "About", about_path, class: "nav-link" %>
-              </li>
-              <li class="nav-item">
-                <%= link_to "Sign up", new_user_registration_path, class: "nav-link" %>
-              </li>
-              <li class="nav-item">
-                <%= link_to "Log in", new_user_session_path, class: "nav-link" %>
+                <%= link_to notifications_path, class: "nav-link" do %>
+                  <i class="fa-solid fa-bell"></i>
+                <% end %>
               </li>
             <% end %>
-          </ul>
-        </div>
+          <% elsif admin_signed_in? %>
+            <li class="nav-item">
+              <%= link_to "Reports", admin_root_path, class: "nav-link" %>
+            </li>
+            <li class="nav-item">
+              <%= link_to "Users", admin_users_path, class: "nav-link" %>
+            </li>
+            <li class="nav-item">
+              <%= link_to "Reviews", admin_reviews_path, class: "nav-link" %>
+            </li>
+            <li class="nav-item">
+              <%= link_to "Log out", destroy_admin_session_path, method: :delete, class: "nav-link" %>
+            </li>
+          <% else %>
+             <li class="nav-item">
+              <%= link_to "About", about_path, class: "nav-link" %>
+            </li>
+            <li class="nav-item">
+              <%= link_to "Sign up", new_user_registration_path, class: "nav-link" %>
+            </li>
+            <li class="nav-item">
+              <%= link_to "Log in", new_user_session_path, class: "nav-link" %>
+            </li>
+          <% end %>
+        </ul>
+      </div>
     </div>
   </nav>
 </header>

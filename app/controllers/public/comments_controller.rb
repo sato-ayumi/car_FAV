@@ -5,10 +5,8 @@ class Public::CommentsController < ApplicationController
     # 投稿に紐づいたコメントの作成
     @comment = current_user.comments.new(comment_params)
     @comment.review_id = @review.id
-    # 返信コメントの作成
-    # @comment_reply = @review.commnets.new
     @comment.save
-      redirect_to request.referer, success: "コメントに成功しました。"
+    redirect_to request.referer, success: "コメントに成功しました。"
   end
   
   def destroy

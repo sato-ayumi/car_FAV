@@ -48,7 +48,6 @@ class Public::UsersController < ApplicationController
     end
   end
 
-
   def ensure_guest_user
     @user = User.find(params[:id])
     if @user.nickname == "guestuser"

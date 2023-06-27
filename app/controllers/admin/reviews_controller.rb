@@ -1,12 +1,11 @@
 class Admin::ReviewsController < ApplicationController
+  
   def index
     @reviews = Review.where(status: "published")
-    
     if params[:makers].present?
       makers = params[:makers].reject(&:blank?)
       @reviews = @reviews.where(maker: makers)
     end
-    
     @reviews_counts = @reviews.count
     @reviews = @reviews.page(params[:page]).reverse_order
   end

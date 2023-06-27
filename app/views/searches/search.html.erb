@@ -2,9 +2,7 @@
   <div class="row mt-5">
     <div class="col-9 offset-1">
       <h3 style="display:inline">
-          <h3 style="display:inline">
-            <%= params[:tags] %>　<%= params[:query] %>の検索結果
-          </h3>
+        <%= params[:tags] %>　<%= params[:query] %>の検索結果
       </h3>
       <h6 style="display:inline;">(全<%= @results_counts %>件)</h6>
       <% if @results.empty? %>

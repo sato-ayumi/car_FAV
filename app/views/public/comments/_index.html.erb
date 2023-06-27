@@ -3,7 +3,7 @@
 <% comments.where(parent_id: nil).first(2).each do |comment| %>
   <%= render "public/comments/hide_comments", review: review, comment: comment, comment_reply: comment_reply %>
 <% end %>
-  
+
 <% if comments.where(parent_id: nil).offset(2).any? %>
   <div class="text-light">
     <button class="btn btn-primary mb-4" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">

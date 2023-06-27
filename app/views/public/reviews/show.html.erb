@@ -25,7 +25,6 @@
           <button type="button" class="btn" data-toggle="modal" data-target="#reportModal">
             <i class="fa-solid fa-flag"></i>
           </button>
-          
           <!-- モーダル -->
           <div class="modal fade" id="reportModal" role="dialog" aria-labelledby="reportModalLabel">
             <div class="modal-dialog" role="document">
@@ -40,7 +39,7 @@
                   <%= form_with model: [@review, @report] do |form| %>
                     <%= form.label :description, "詳細" %>
                     <%= form.text_area :description, placeholder: "問題の内容をご記入ください。", class: "form-control" %>
-          
+
                 <div class="modal-footer">
                     <%= form.submit "報告する", class: "btn btn-primary" %>
                 </div>
@@ -49,7 +48,6 @@
               </div>
             </div>
           </div>
-          
         <% end %>
       </div>
     </div>
@@ -60,3 +58,4 @@
       <%= render "public/comments/form", review: @review, comment: @comment %>
     <% end %>
   </div>
+</div>

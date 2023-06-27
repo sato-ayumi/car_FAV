@@ -18,13 +18,12 @@ class Public::ReviewsController < ApplicationController
   end
 
   def index
+    # 有効会員の公開に設定している投稿のみ
     @reviews = Review.joins(:user).where(users: { is_deleted: false }, reviews: { status: "published" })
-
     if params[:makers].present?
       makers = params[:makers].reject(&:blank?)
       @reviews = @reviews.where(maker: makers)
     end
-
     @reviews_counts = @reviews.count
     @reviews = @reviews.page(params[:page]).reverse_order
 
